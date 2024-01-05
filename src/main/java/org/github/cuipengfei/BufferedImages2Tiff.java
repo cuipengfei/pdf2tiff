@@ -1,4 +1,4 @@
-package org.github.cpf;
+package org.github.cuipengfei;
 
 import com.twelvemonkeys.imageio.plugins.tiff.TIFFImageWriter;
 
