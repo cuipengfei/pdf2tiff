@@ -97,9 +97,9 @@
                 <version>1.9.10</version>
                 <executions>
                     <execution>
-                        <phase>pre-site</phase>
+                        <id>attach-javadocs</id>
                         <goals>
-                            <goal>dokka</goal>
+                            <goal>javadocJar</goal>
                         </goals>
                     </execution>
                 </executions>
