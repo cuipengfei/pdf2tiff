@@ -8,6 +8,10 @@
     <artifactId>pdf2tiff</artifactId>
     <version>1.0</version>
 
+    <name>pdf2tiff</name>
+    <description>Convert pdf to tiff image</description>
+    <url>https://github.com/cuipengfei/pdf2tiff</url>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -54,6 +58,7 @@
         <developer>
             <id>cuipengfei</id>
             <name>cuipengfei</name>
+            <email>cuipengfei2008@gmail.com</email>
         </developer>
     </developers>
 
