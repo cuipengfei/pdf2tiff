@@ -25,6 +25,7 @@ public class BufferedImages2Tiff {
      *
      * @param bufferedImages a list of buffered images
      * @param output         tiff output stream
+     * @param compression    compression type, such as "LZW", "JPEG", "PackBits", "Deflate"
      * @throws IOException            if an I/O error occurs
      * @throws ClassNotFoundException if the class cannot be located
      */
