@@ -1,4 +1,4 @@
-package org.github.cuipengfei;
+package com.github.cuipengfei;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.Loader;

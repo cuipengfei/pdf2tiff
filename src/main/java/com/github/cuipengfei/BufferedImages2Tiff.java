@@ -1,4 +1,4 @@
-package org.github.cuipengfei;
+package com.github.cuipengfei;
 
 import com.twelvemonkeys.imageio.plugins.tiff.TIFFImageWriter;
 import lombok.extern.slf4j.Slf4j;
