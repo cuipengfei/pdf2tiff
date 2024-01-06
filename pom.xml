@@ -97,7 +97,8 @@
                 <version>1.9.10</version>
                 <executions>
                     <execution>
-                        <id>attach-javadocs</id>
+                        <phase>package</phase>
+                        <id>attach-javadocs-dokka</id>
                         <goals>
                             <goal>javadocJar</goal>
                         </goals>
