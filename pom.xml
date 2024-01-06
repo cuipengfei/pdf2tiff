@@ -6,7 +6,7 @@
 
     <groupId>com.github.cuipengfei</groupId>
     <artifactId>pdf2tiff</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <name>pdf2tiff</name>
     <description>Convert pdf to tiff image</description>
