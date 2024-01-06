@@ -40,3 +40,4 @@ build/
 
 Main.java
 *.tiff
+/secret.txt
