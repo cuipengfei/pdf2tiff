@@ -20,6 +20,13 @@ public class Pdf2BufferedImages {
         this.dpi = dpi;
     }
 
+    /**
+     * PDF input stream to a list of buffered images
+     *
+     * @param pdfInputStream pdf input stream
+     * @return a list of buffered images
+     * @throws IOException if an I/O error occurs
+     */
     public List<BufferedImage> pdf2BufferedImages(InputStream pdfInputStream) throws IOException {
         ArrayList<BufferedImage> images = new ArrayList<>();
 

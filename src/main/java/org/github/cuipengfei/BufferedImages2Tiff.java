@@ -18,7 +18,16 @@ import static javax.imageio.ImageIO.getImageWritersByFormatName;
 
 public class BufferedImages2Tiff {
 
-    public void bufferedImages2TiffOutputStream(List<BufferedImage> bufferedImages, OutputStream output, String compression)
+    /**
+     * Convert from a list of buffered images to tiff output stream
+     *
+     * @param bufferedImages a list of buffered images
+     * @param output         tiff output stream
+     * @throws IOException            if an I/O error occurs
+     * @throws ClassNotFoundException if the class cannot be located
+     */
+    public void bufferedImages2TiffOutputStream(
+            List<BufferedImage> bufferedImages, OutputStream output, String compression)
             throws IOException, ClassNotFoundException {
 
         Optional<ImageWriter> tiffWriterOptional = findTiffWriter();
