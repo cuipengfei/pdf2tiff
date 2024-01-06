@@ -1,6 +1,7 @@
 package org.github.cuipengfei;
 
 import com.twelvemonkeys.imageio.plugins.tiff.TIFFImageWriter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageWriteParam;
@@ -16,6 +17,7 @@ import java.util.Optional;
 import static javax.imageio.ImageIO.createImageOutputStream;
 import static javax.imageio.ImageIO.getImageWritersByFormatName;
 
+@Slf4j
 public class BufferedImages2Tiff {
 
     /**
@@ -47,6 +49,7 @@ public class BufferedImages2Tiff {
                 tiffWriter.endWriteSequence();
             }
             tiffWriter.dispose();
+            log.info("Buffered images to tiff output stream, number of pages: {}", bufferedImages.size());
         } else {
             throw new ClassNotFoundException("Can not find tiff writer class");
         }
@@ -62,6 +65,7 @@ public class BufferedImages2Tiff {
     private static Optional<ImageWriter> findTiffWriter() {
         List<ImageWriter> actualList = new ArrayList<>();
         getImageWritersByFormatName("TIFF").forEachRemaining(actualList::add);
+        log.info("Find tiff writer class: {}", actualList);
         return actualList.stream().filter(writer -> writer instanceof TIFFImageWriter).findFirst();
     }
 }

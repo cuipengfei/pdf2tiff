@@ -1,5 +1,7 @@
 package org.github.cuipengfei;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,6 +10,7 @@ import java.nio.file.Paths;
 import static java.nio.file.Files.newInputStream;
 import static java.nio.file.Files.newOutputStream;
 
+@Slf4j
 public class Pdf2Tiff {
 
     private static final int DEFAULT_DPI = 300;
@@ -69,6 +72,10 @@ public class Pdf2Tiff {
      */
     public static void pdf2Tiff(String pdfPath, String tiffPath, int dpi, String compression)
             throws IOException, ClassNotFoundException {
+
+        log.info("PDF to tiff, pdf path: {}, tiff path: {}, dpi: {}, compression: {}",
+                pdfPath, tiffPath, dpi, compression);
+
         try (InputStream input = newInputStream(Paths.get(pdfPath));
              OutputStream output = newOutputStream(Paths.get(tiffPath))) {
             pdf2Tiff(input, output, dpi, compression);

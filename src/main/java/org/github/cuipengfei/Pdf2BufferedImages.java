@@ -1,5 +1,6 @@
 package org.github.cuipengfei;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import static org.apache.pdfbox.io.RandomAccessReadBuffer.createBufferFromStream;
 
+@Slf4j
 public class Pdf2BufferedImages {
 
     private final int dpi;
@@ -39,6 +41,7 @@ public class Pdf2BufferedImages {
             images.add(bufferedImage);
         }
 
+        log.info("PDF to buffered images, number of pages: {}", numberOfPages);
         return images;
     }
 }
