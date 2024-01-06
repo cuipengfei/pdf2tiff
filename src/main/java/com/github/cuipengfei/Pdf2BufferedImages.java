@@ -32,16 +32,18 @@ public class Pdf2BufferedImages {
     public List<BufferedImage> pdf2BufferedImages(InputStream pdfInputStream) throws IOException {
         ArrayList<BufferedImage> images = new ArrayList<>();
 
-        PDDocument pdf = Loader.loadPDF(createBufferFromStream(pdfInputStream));
-        PDFRenderer renderer = new PDFRenderer(pdf);
+        try (PDDocument pdf = Loader.loadPDF(createBufferFromStream(pdfInputStream))) {
+            PDFRenderer renderer = new PDFRenderer(pdf);
 
-        int numberOfPages = pdf.getNumberOfPages();
-        for (int i = 0; i < numberOfPages; i++) {
-            BufferedImage bufferedImage = renderer.renderImageWithDPI(i, dpi);
-            images.add(bufferedImage);
+            int numberOfPages = pdf.getNumberOfPages();
+            for (int i = 0; i < numberOfPages; i++) {
+                BufferedImage bufferedImage = renderer.renderImageWithDPI(i, dpi);
+                images.add(bufferedImage);
+            }
+
+            log.info("PDF to buffered images, number of pages: {}", numberOfPages);
         }
 
-        log.info("PDF to buffered images, number of pages: {}", numberOfPages);
         return images;
     }
 }
