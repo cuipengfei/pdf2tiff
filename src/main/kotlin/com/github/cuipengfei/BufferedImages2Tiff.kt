@@ -26,9 +26,9 @@ class BufferedImages2Tiff {
      */
     @Throws(IOException::class, ClassNotFoundException::class)
     fun bufferedImages2TiffOutputStream(
-            bufferedImages: List<BufferedImage>,
-            output: OutputStream,
-            compression: String
+        bufferedImages: List<BufferedImage>,
+        output: OutputStream,
+        compression: String
     ) {
         val tiffWriterOptional = findTiffWriter()
 

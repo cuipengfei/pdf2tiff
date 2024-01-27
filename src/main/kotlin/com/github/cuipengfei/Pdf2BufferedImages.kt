@@ -2,6 +2,7 @@ package com.github.cuipengfei
 
 import org.apache.pdfbox.Loader
 import org.apache.pdfbox.io.RandomAccessReadBuffer.createBufferFromStream
+import org.apache.pdfbox.rendering.ImageType
 import org.apache.pdfbox.rendering.PDFRenderer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -9,7 +10,8 @@ import java.awt.image.BufferedImage
 import java.io.IOException
 import java.io.InputStream
 
-class Pdf2BufferedImages(private val dpi: Int) {
+
+class Pdf2BufferedImages(private val dpi: Int, private val imgType: ImageType) {
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
     /**
@@ -28,7 +30,7 @@ class Pdf2BufferedImages(private val dpi: Int) {
 
             val numberOfPages = pdf.numberOfPages
             for (i in 0 until numberOfPages) {
-                val bufferedImage = renderer.renderImageWithDPI(i, dpi.toFloat())
+                val bufferedImage = renderer.renderImageWithDPI(i, dpi.toFloat(), imgType)
                 images.add(bufferedImage)
             }
 
