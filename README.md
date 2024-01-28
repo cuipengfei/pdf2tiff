@@ -3,9 +3,9 @@ Convert PDF to multi-page Tiff, using pdfbox and twelvemonkeys.
 Example
 
 ```java
-// call from java
-Pdf2Tiff.INSTANCE.pdf2Tiff("my.pdf", "my.tiff", dpi, compression, ImageType.RGB);
-// suggested dpi 300, suggested compression Deflate
+// call the converter from java
+// suggested dpi: 300, suggested compression: Deflate
+Pdf2Tiff.INSTANCE.pdf2Tiff("my.pdf", "my.tiff", 300, "Deflate", ImageType.RGB);
 ```
 
 ```xml
