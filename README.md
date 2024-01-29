@@ -9,9 +9,10 @@ Pdf2Tiff.INSTANCE.pdf2Tiff("my.pdf", "my.tiff", 300, "Deflate", ImageType.RGB);
 ```
 
 ```xml
+
 <dependency>
-  <groupId>com.github.cuipengfei</groupId>
-  <artifactId>pdf2tiff</artifactId>
-  <version>1.3</version>
+    <groupId>com.github.pdf2tiff</groupId>
+    <artifactId>pdf2tiff</artifactId>
+    <version>1.3</version>
 </dependency>
 ```

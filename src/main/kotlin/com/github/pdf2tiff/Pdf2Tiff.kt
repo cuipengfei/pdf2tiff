@@ -1,4 +1,4 @@
-package com.github.cuipengfei
+package com.github.pdf2tiff
 
 import org.apache.pdfbox.rendering.ImageType
 import org.slf4j.Logger
