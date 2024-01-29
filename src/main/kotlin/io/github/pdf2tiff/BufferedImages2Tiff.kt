@@ -1,4 +1,4 @@
-package com.github.pdf2tiff
+package io.github.pdf2tiff
 
 import com.twelvemonkeys.imageio.plugins.tiff.TIFFImageWriter
 import org.slf4j.Logger

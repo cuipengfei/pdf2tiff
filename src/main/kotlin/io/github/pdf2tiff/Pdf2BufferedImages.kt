@@ -1,4 +1,4 @@
-package com.github.pdf2tiff
+package io.github.pdf2tiff
 
 import org.apache.pdfbox.Loader
 import org.apache.pdfbox.io.RandomAccessReadBuffer.createBufferFromStream
