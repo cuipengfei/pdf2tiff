@@ -42,3 +42,4 @@ Main.java
 *.tiff
 /secret.txt
 /src/main/kotlin/io/github/pdf2tiff/TestConvert.kt
+/.java-version

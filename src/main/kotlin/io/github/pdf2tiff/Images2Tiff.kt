@@ -24,20 +24,19 @@ class Images2Tiff(private val compression: String) {
      * Convert from a list of buffered images to tiff output stream
      *
      * @param bufferedImages a list of buffered images
-     * @param output         tiff output stream
-     * @param compression    compression type, such as "LZW", "JPEG", "PackBits", "Deflate"
+     * @param outputStream         tiff output stream
      * @throws IOException            if an I/O error occurs
      * @throws ClassNotFoundException if the class cannot be located
      */
     @Throws(IOException::class, ClassNotFoundException::class)
     fun bufferedImages2TiffOutputStream(
         bufferedImages: List<BufferedImage>,
-        output: OutputStream
+        outputStream: OutputStream
     ) {
         val tiffWriterOptional = findTiffWriter()
 
         if (tiffWriterOptional.isPresent) {
-            ImageIO.createImageOutputStream(output).use { imageOutputStream ->
+            ImageIO.createImageOutputStream(outputStream).use { imageOutputStream ->
                 val tiffWriter = tiffWriterOptional.get()
                 val writeParam = configWriteParam(tiffWriter, compression)
 
