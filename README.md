@@ -1,3 +1,5 @@
+[![Publish package to the Maven Central Repository](https://github.com/pdf2tiff/pdf2tiff/actions/workflows/publish-to-maven.yaml/badge.svg)](https://github.com/pdf2tiff/pdf2tiff/actions/workflows/publish-to-maven.yaml)
+
 Convert PDF to multi-page Tiff, using pdfbox and twelvemonkeys.
 
 Example
