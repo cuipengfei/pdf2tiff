@@ -19,7 +19,10 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }} 
           gpg-passphrase: MAVEN_GPG_PASSPHRASE 
-
+      
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1.11.0
+            
       - id: install-secret-key
         name: Install gpg secret key
         run: |
