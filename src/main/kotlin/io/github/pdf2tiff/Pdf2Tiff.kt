@@ -23,6 +23,7 @@ object Pdf2Tiff {
      * @param output tiff output stream
      * @param dpi pdf to image quality
      * @param compression tiff compression
+     * @param imgType image type, such as "RGB", "BGR", "GRAY"
      * @throws IOException if an I/O error occurs
      * @throws ClassNotFoundException if the class cannot be located
      */
@@ -34,10 +35,10 @@ object Pdf2Tiff {
         compression: String = DEFAULT_COMPRESSION,
         imgType: ImageType = DEFAULT_IMAGE_TYPE
     ) {
-        val pdf2Images = Pdf2BufferedImages(dpi, imgType)
-        val images2Tiff = BufferedImages2Tiff()
+        log.info("PDF input stream to tiff output stream, dpi: $dpi, compression: $compression, image type: $imgType")
 
-        images2Tiff.bufferedImages2TiffOutputStream(pdf2Images.pdf2BufferedImages(input), output, compression)
+        val bufferedImages = Pdf2Images(dpi, imgType).pdf2BufferedImages(input)
+        Images2Tiff(compression).bufferedImages2TiffOutputStream(bufferedImages, output)
     }
 
     /**
@@ -47,6 +48,7 @@ object Pdf2Tiff {
      * @param tiffPath tiff output file path
      * @param dpi pdf to image quality
      * @param compression tiff compression
+     * @param imgType image type, such as "RGB", "BGR", "GRAY"
      * @throws IOException if an I/O error occurs
      * @throws ClassNotFoundException if the class cannot be located
      */
@@ -58,7 +60,7 @@ object Pdf2Tiff {
         compression: String = DEFAULT_COMPRESSION,
         imgType: ImageType = DEFAULT_IMAGE_TYPE
     ) {
-        log.info("PDF to tiff, pdf path: $pdfPath, tiff path: $tiffPath, dpi: $dpi, compression: $compression")
+        log.info("PDF file to tiff file, pdf path: $pdfPath, tiff path: $tiffPath, dpi: $dpi, compression: $compression, image type: $imgType")
 
         Files.newInputStream(Paths.get(pdfPath)).use { input ->
             Files.newOutputStream(Paths.get(tiffPath)).use { output ->
