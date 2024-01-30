@@ -6,7 +6,7 @@
 
     <groupId>io.github.pdf2tiff</groupId>
     <artifactId>pdf2tiff</artifactId>
-    <version>1.5</version>
+    <version>1.5.1</version>
 
     <name>pdf2tiff</name>
     <description>Convert pdf to tiff image</description>
