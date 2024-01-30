@@ -12,7 +12,12 @@ import javax.imageio.ImageIO
 import javax.imageio.ImageWriteParam
 import javax.imageio.ImageWriter
 
-class BufferedImages2Tiff {
+/**
+ * Images to tiff
+ *
+ * @param compression compression type, such as "LZW", "Deflate"
+ */
+class Images2Tiff(private val compression: String) {
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
     /**
@@ -27,8 +32,7 @@ class BufferedImages2Tiff {
     @Throws(IOException::class, ClassNotFoundException::class)
     fun bufferedImages2TiffOutputStream(
         bufferedImages: List<BufferedImage>,
-        output: OutputStream,
-        compression: String
+        output: OutputStream
     ) {
         val tiffWriterOptional = findTiffWriter()
 

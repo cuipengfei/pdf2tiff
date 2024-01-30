@@ -10,8 +10,13 @@ import java.awt.image.BufferedImage
 import java.io.IOException
 import java.io.InputStream
 
-
-class Pdf2BufferedImages(private val dpi: Int, private val imgType: ImageType) {
+/**
+ * PDF to images
+ *
+ * @param dpi pdf to image quality
+ * @param imgType image type, such as "RGB", "BGR", "GRAY"
+ */
+class Pdf2Images(private val dpi: Int, private val imgType: ImageType) {
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
     /**
