@@ -15,6 +15,6 @@ Pdf2Tiff.INSTANCE.pdf2Tiff("my.pdf", "my.tiff", 300, "Deflate", ImageType.RGB);
 <dependency>
     <groupId>io.github.pdf2tiff</groupId>
     <artifactId>pdf2tiff</artifactId>
-    <version>1.5</version>
+    <version>1.5.2</version>
 </dependency>
 ```
