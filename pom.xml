@@ -6,7 +6,7 @@
 
     <groupId>io.github.pdf2tiff</groupId>
     <artifactId>pdf2tiff</artifactId>
-    <version>1.5.4</version>
+    <version>1.5.5</version>
 
     <name>pdf2tiff</name>
     <description>Convert pdf to tiff image</description>
@@ -179,5 +179,14 @@
 
         </plugins>
     </build>
+
+    <distributionManagement>
+
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/pdf2tiff/pdf2tiff</url>
+        </repository>
+    </distributionManagement>
 
 </project>

@@ -7,7 +7,7 @@ Example
 ```java
 // call the converter from java
 // suggested dpi: 300, suggested compression: Deflate
-Pdf2Tiff.INSTANCE.pdf2Tiff("my.pdf", "my.tiff", 300, "Deflate", ImageType.RGB);
+Pdf2Tiff.INSTANCE.pdf2Tiff("my.pdf","my.tiff",300,"Deflate",ImageType.RGB);
 ```
 
 ```xml
@@ -15,6 +15,8 @@ Pdf2Tiff.INSTANCE.pdf2Tiff("my.pdf", "my.tiff", 300, "Deflate", ImageType.RGB);
 <dependency>
     <groupId>io.github.pdf2tiff</groupId>
     <artifactId>pdf2tiff</artifactId>
-    <version>1.5.4</version>
+    <version>${pdf2tiff.version}</version>
 </dependency>
 ```
+
+Check for versions here: https://central.sonatype.com/artifact/io.github.pdf2tiff/pdf2tiff/versions
