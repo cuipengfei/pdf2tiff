@@ -60,12 +60,34 @@ object Pdf2Tiff {
         compression: String = DEFAULT_COMPRESSION,
         imgType: ImageType = DEFAULT_IMAGE_TYPE
     ) {
-        log.info("PDF file to tiff file, pdf path: $pdfPath, tiff path: $tiffPath, dpi: $dpi, compression: $compression, image type: $imgType")
-
         Files.newInputStream(Paths.get(pdfPath)).use { input ->
             Files.newOutputStream(Paths.get(tiffPath)).use { output ->
                 pdf2Tiff(input, output, dpi, compression, imgType)
             }
         }
+    }
+
+    fun pdf2Tiff(fileSizeControl: FileSizeControl) {
+
+        if (fileSizeControl.sourceFile != null && fileSizeControl.destFile != null) {
+            fileSizeControl.qualityParams.forEach {
+                pdf2Tiff(
+                    fileSizeControl.sourceFile,
+                    fileSizeControl.destFile,
+                    it.dpi,
+                    it.compression,
+                    it.imgType
+                )
+                val size = Files.size(Paths.get(fileSizeControl.destFile))
+                log.info("Converted file size: $size, max file size: ${fileSizeControl.maxFileSize}")
+                if (size <= fileSizeControl.maxFileSize) {
+                    log.info("file size is within the limit, won't try next")
+                    return
+                } else {
+                    log.info("will try next quality params if any")
+                }
+            }
+        }
+
     }
 }
