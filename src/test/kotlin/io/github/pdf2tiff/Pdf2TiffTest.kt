@@ -15,14 +15,14 @@ class Pdf2TiffTest {
                 .qualityParam(QualityParams(300, "Deflate", ImageType.RGB))
                 .qualityParam(QualityParams(200, "Deflate", ImageType.GRAY))
                 .qualityParam(QualityParams(100, "JPEG", ImageType.GRAY))
-                .qualityParam(QualityParams(100, "Deflate", ImageType.BINARY))
-                .qualityParam(QualityParams(50, "Deflate", ImageType.BINARY))
+                .qualityParam(QualityParams(100, "Deflate", ImageType.BINARY)) // this one is 14kb
+                .qualityParam(QualityParams(50, "Deflate", ImageType.BINARY)) // this one will not run
                 .filePair("src/test/resources/sample.pdf", "output.tiff")
                 .build()
         )
 
         val outputFileSize = Files.size(Paths.get("output.tiff"))
-        Assertions.assertTrue(outputFileSize > 0)
+        Assertions.assertTrue(outputFileSize > 14000)
         Assertions.assertTrue(outputFileSize < 15000)
     }
 }

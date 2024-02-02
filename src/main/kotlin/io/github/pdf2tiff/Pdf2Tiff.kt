@@ -1,11 +1,10 @@
 package io.github.pdf2tiff
 
+import org.apache.pdfbox.io.IOUtils
 import org.apache.pdfbox.rendering.ImageType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
+import java.io.*
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -68,26 +67,53 @@ object Pdf2Tiff {
     }
 
     fun pdf2Tiff(fileSizeControl: FileSizeControl) {
-
-        if (fileSizeControl.sourceFile != null && fileSizeControl.destFile != null) {
-            fileSizeControl.qualityParams.forEach {
-                pdf2Tiff(
-                    fileSizeControl.sourceFile,
-                    fileSizeControl.destFile,
-                    it.dpi,
-                    it.compression,
-                    it.imgType
-                )
-                val size = Files.size(Paths.get(fileSizeControl.destFile))
-                log.info("Converted file size: $size, max file size: ${fileSizeControl.maxFileSize}")
-                if (size <= fileSizeControl.maxFileSize) {
-                    log.info("file size is within the limit, won't try next")
-                    return
-                } else {
-                    log.info("will try next quality params if any")
+        if (fileSizeControl.isFilePair()) {
+            Files.newInputStream(Paths.get(fileSizeControl.sourceFile!!)).use { input ->
+                Files.newOutputStream(Paths.get(fileSizeControl.destFile!!)).use { output ->
+                    fileSizeControl.sourceInputStream = input
+                    fileSizeControl.destOutputStream = output
+                    convertWithSizeControl(fileSizeControl)
                 }
             }
+        } else if (fileSizeControl.isStreamPair()) {
+            convertWithSizeControl(fileSizeControl)
+        }
+    }
+
+    private fun convertWithSizeControl(fileSizeControl: FileSizeControl) {
+        val byteArrayInputStream = ByteArrayInputStream(IOUtils.toByteArray(fileSizeControl.sourceInputStream))
+        val byteArrayOutputStream = ByteArrayOutputStream()
+
+        fileSizeControl.qualityParams.forEach {
+            byteArrayInputStream.reset()
+            byteArrayOutputStream.reset()
+
+            pdf2Tiff(
+                byteArrayInputStream, byteArrayOutputStream,
+                it.dpi, it.compression, it.imgType
+            )
+
+            if (isSizeOk(byteArrayOutputStream, fileSizeControl)) return
         }
 
+        log.info("last quality params still exceed the limit, use the last one")
+        byteArrayOutputStream.writeTo(fileSizeControl.destOutputStream)
+    }
+
+    private fun isSizeOk(
+        byteArrayOutputStream: ByteArrayOutputStream,
+        fileSizeControl: FileSizeControl
+    ): Boolean {
+        val size = byteArrayOutputStream.size()
+        log.info("Converted file size: $size, max file size: ${fileSizeControl.maxFileSize}")
+
+        if (size <= fileSizeControl.maxFileSize) {
+            log.info("file size is within the limit, won't try next")
+            byteArrayOutputStream.writeTo(fileSizeControl.destOutputStream)
+            return true
+        } else {
+            log.info("will try next quality params if any")
+            return false
+        }
     }
 }
