@@ -69,8 +69,12 @@ object Pdf2Tiff {
 
     /**
      * Convert with size control
+     *
      * @param sizeControl size control params
+     * @throws IOException if an I/O error occurs
+     * @throws ClassNotFoundException if the class cannot be located
      */
+    @Throws(IOException::class, ClassNotFoundException::class)
     fun pdf2Tiff(sizeControl: SizeControlParams) {
         if (sizeControl.isFilePair()) {
             Files.newInputStream(Paths.get(sizeControl.sourceFile!!)).use { input ->
