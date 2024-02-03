@@ -38,8 +38,7 @@ class Pdf2Images(private val dpi: Int, private val imgType: ImageType) {
                 val bufferedImage = renderer.renderImageWithDPI(i, dpi.toFloat(), imgType)
                 images.add(bufferedImage)
             }
-
-            log.info("PDF to buffered images, number of pages: $numberOfPages")
+            log.info("Taken $numberOfPages pages of images from PDF")
         }
 
         return images

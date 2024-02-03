@@ -98,7 +98,8 @@ object Pdf2Tiff {
             byteArrayOutputStream.reset()
 
             pdf2Tiff(
-                byteArrayInputStream, byteArrayOutputStream, it.dpi, it.compression, it.imgType
+                byteArrayInputStream, byteArrayOutputStream,
+                it.dpi, it.compression, it.imgType
             )
 
             if (isSizeOk(byteArrayOutputStream, sizeControl)) return
@@ -109,7 +110,8 @@ object Pdf2Tiff {
     }
 
     private fun isSizeOk(
-        byteArrayOutputStream: ByteArrayOutputStream, sizeControl: SizeControlParams
+        byteArrayOutputStream: ByteArrayOutputStream,
+        sizeControl: SizeControlParams
     ): Boolean {
         val actualSize = byteArrayOutputStream.size()
         val isWithinLimit = actualSize <= sizeControl.maxFileSize

@@ -16,19 +16,24 @@ import java.io.OutputStream
 data class SizeControlParams(
     val maxFileSize: Long,
     val qualityParams: List<QualityParams>,
+
     val sourceFile: String?,
     val destFile: String?,
+
     var sourceInputStream: InputStream?,
     var destOutputStream: OutputStream?
 ) {
+
     fun isFilePair() = sourceFile != null && destFile != null
     fun isStreamPair() = sourceInputStream != null && destOutputStream != null
 
     class Builder {
         private var maxFileSize: Long = 0
         private var qualityParams: MutableList<QualityParams> = mutableListOf()
+
         private var sourceFile: String? = null
         private var destFile: String? = null
+
         private var sourceInputStream: InputStream? = null
         private var destOutputStream: OutputStream? = null
 
@@ -47,9 +52,13 @@ data class SizeControlParams(
         }
 
         fun build(): SizeControlParams {
-            require((sourceFile != null && destFile != null) || (sourceInputStream != null && destOutputStream != null)) {
+            val isFileSet = sourceFile != null && destFile != null
+            val isStreamSet = sourceInputStream != null && destOutputStream != null
+
+            require(isFileSet || isStreamSet) {
                 "Either both sourceFile and destFile or both sourceInputStream and destOutputStream must be set"
             }
+
             return SizeControlParams(
                 maxFileSize, qualityParams,
                 sourceFile, destFile,
