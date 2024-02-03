@@ -3,6 +3,16 @@ package io.github.pdf2tiff.params
 import java.io.InputStream
 import java.io.OutputStream
 
+/**
+ * Parameters for controlling the size of the output.
+ *
+ * @param maxFileSize maximum file size in bytes
+ * @param qualityParams list of quality parameters
+ * @param sourceFile source file path
+ * @param destFile destination file path
+ * @param sourceInputStream source input stream
+ * @param destOutputStream destination output stream
+ */
 data class SizeControlParams(
     val maxFileSize: Long,
     val qualityParams: List<QualityParams>,
@@ -14,17 +24,18 @@ data class SizeControlParams(
     fun isFilePair() = sourceFile != null && destFile != null
     fun isStreamPair() = sourceInputStream != null && destOutputStream != null
 
-    data class Builder(
-        var maxFileSize: Long = 0,
-        var qualityParams: MutableList<QualityParams> = mutableListOf(),
-        var sourceFile: String? = null,
-        var destFile: String? = null,
-        var sourceInputStream: InputStream? = null,
-        var destOutputStream: OutputStream? = null
-    ) {
+    class Builder {
+        private var maxFileSize: Long = 0
+        private var qualityParams: MutableList<QualityParams> = mutableListOf()
+        private var sourceFile: String? = null
+        private var destFile: String? = null
+        private var sourceInputStream: InputStream? = null
+        private var destOutputStream: OutputStream? = null
+
         fun maxFileSize(maxFileSize: Long) = apply { this.maxFileSize = maxFileSize }
         fun qualityParams(qualityParams: List<QualityParams>) = apply { this.qualityParams.addAll(qualityParams) }
         fun qualityParam(qualityParam: QualityParams) = apply { this.qualityParams.add(qualityParam) }
+
         fun filePair(sourceFile: String, destFile: String) = apply {
             this.sourceFile = sourceFile
             this.destFile = destFile
@@ -36,16 +47,13 @@ data class SizeControlParams(
         }
 
         fun build(): SizeControlParams {
-            require(sourceFile != null && destFile != null || sourceInputStream != null && destOutputStream != null) {
+            require((sourceFile != null && destFile != null) || (sourceInputStream != null && destOutputStream != null)) {
                 "Either both sourceFile and destFile or both sourceInputStream and destOutputStream must be set"
             }
             return SizeControlParams(
-                maxFileSize,
-                qualityParams,
-                sourceFile,
-                destFile,
-                sourceInputStream,
-                destOutputStream
+                maxFileSize, qualityParams,
+                sourceFile, destFile,
+                sourceInputStream, destOutputStream
             )
         }
     }

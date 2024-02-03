@@ -67,6 +67,10 @@ object Pdf2Tiff {
         }
     }
 
+    /**
+     * Convert with size control
+     * @param sizeControl size control params
+     */
     fun pdf2Tiff(sizeControl: SizeControlParams) {
         if (sizeControl.isFilePair()) {
             Files.newInputStream(Paths.get(sizeControl.sourceFile!!)).use { input ->
