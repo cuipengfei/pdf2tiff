@@ -42,12 +42,11 @@ class Images2Tiff(private val compression: String) {
 
                 tiffWriter.output = imageOutputStream
                 tiffWriter.prepareWriteSequence(null)
-
                 for (bufferedImage in bufferedImages) {
                     tiffWriter.writeToSequence(IIOImage(bufferedImage, null, null), writeParam)
                 }
-
                 tiffWriter.endWriteSequence()
+
                 tiffWriter.dispose()
             }
 
