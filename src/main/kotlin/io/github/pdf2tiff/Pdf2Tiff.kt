@@ -1,7 +1,7 @@
 package io.github.pdf2tiff
 
 import io.github.pdf2tiff.params.SizeControlParams
-import org.apache.pdfbox.io.IOUtils
+import org.apache.pdfbox.io.IOUtils.toByteArray
 import org.apache.pdfbox.rendering.ImageType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -67,54 +67,53 @@ object Pdf2Tiff {
         }
     }
 
-    fun pdf2Tiff(sizeControlParams: SizeControlParams) {
-        if (sizeControlParams.isFilePair()) {
-            Files.newInputStream(Paths.get(sizeControlParams.sourceFile!!)).use { input ->
-                Files.newOutputStream(Paths.get(sizeControlParams.destFile!!)).use { output ->
-                    sizeControlParams.sourceInputStream = input
-                    sizeControlParams.destOutputStream = output
-                    convertWithSizeControl(sizeControlParams)
+    fun pdf2Tiff(sizeControl: SizeControlParams) {
+        if (sizeControl.isFilePair()) {
+            Files.newInputStream(Paths.get(sizeControl.sourceFile!!)).use { input ->
+                Files.newOutputStream(Paths.get(sizeControl.destFile!!)).use { output ->
+                    sizeControl.sourceInputStream = input
+                    sizeControl.destOutputStream = output
+                    convertWithSizeControl(sizeControl)
                 }
             }
-        } else if (sizeControlParams.isStreamPair()) {
-            convertWithSizeControl(sizeControlParams)
+        } else if (sizeControl.isStreamPair()) {
+            convertWithSizeControl(sizeControl)
         }
     }
 
-    private fun convertWithSizeControl(sizeControlParams: SizeControlParams) {
-        val byteArrayInputStream = ByteArrayInputStream(IOUtils.toByteArray(sizeControlParams.sourceInputStream))
+    private fun convertWithSizeControl(sizeControl: SizeControlParams) {
+        val byteArrayInputStream = ByteArrayInputStream(toByteArray(sizeControl.sourceInputStream))
         val byteArrayOutputStream = ByteArrayOutputStream()
 
-        sizeControlParams.qualityParams.forEach {
+        sizeControl.qualityParams.forEach {
             byteArrayInputStream.reset()
             byteArrayOutputStream.reset()
 
             pdf2Tiff(
-                byteArrayInputStream, byteArrayOutputStream,
-                it.dpi, it.compression, it.imgType
+                byteArrayInputStream, byteArrayOutputStream, it.dpi, it.compression, it.imgType
             )
 
-            if (isSizeOk(byteArrayOutputStream, sizeControlParams)) return
+            if (isSizeOk(byteArrayOutputStream, sizeControl)) return
         }
 
-        log.info("last quality params still exceed the limit, use the last one")
-        byteArrayOutputStream.writeTo(sizeControlParams.destOutputStream)
+        log.info("last quality params still exceed the limit, keep the last one")
+        byteArrayOutputStream.writeTo(sizeControl.destOutputStream)
     }
 
     private fun isSizeOk(
-        byteArrayOutputStream: ByteArrayOutputStream,
-        sizeControlParams: SizeControlParams
+        byteArrayOutputStream: ByteArrayOutputStream, sizeControl: SizeControlParams
     ): Boolean {
-        val size = byteArrayOutputStream.size()
-        log.info("Converted file size: $size, max file size: ${sizeControlParams.maxFileSize}")
+        val actualSize = byteArrayOutputStream.size()
+        val isWithinLimit = actualSize <= sizeControl.maxFileSize
 
-        if (size <= sizeControlParams.maxFileSize) {
-            log.info("file size is within the limit, won't try next")
-            byteArrayOutputStream.writeTo(sizeControlParams.destOutputStream)
-            return true
-        } else {
-            log.info("will try next quality params if any")
-            return false
-        }
+        log.info(
+            "Converted size: $actualSize, max file size: ${sizeControl.maxFileSize}, " +
+                    if (isWithinLimit) "file size is within the limit, won't try next"
+                    else "will try next quality params if any"
+        )
+
+        if (isWithinLimit) byteArrayOutputStream.writeTo(sizeControl.destOutputStream)
+
+        return isWithinLimit
     }
 }
