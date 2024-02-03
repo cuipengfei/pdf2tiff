@@ -1,4 +1,4 @@
-package io.github.pdf2tiff
+package io.github.pdf2tiff.params
 
 import org.apache.pdfbox.rendering.ImageType
 

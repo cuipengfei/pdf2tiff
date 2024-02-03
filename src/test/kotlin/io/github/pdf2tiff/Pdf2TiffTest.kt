@@ -1,5 +1,7 @@
 package io.github.pdf2tiff
 
+import io.github.pdf2tiff.params.QualityParams
+import io.github.pdf2tiff.params.SizeControlParams
 import org.apache.pdfbox.rendering.ImageType
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -10,7 +12,7 @@ class Pdf2TiffTest {
     @Test
     fun pdf2TiffTest() {
         Pdf2Tiff.pdf2Tiff(
-            FileSizeControl.Builder()
+            SizeControlParams.Builder()
                 .maxFileSize(15000)
                 .qualityParam(QualityParams(300, "Deflate", ImageType.RGB))
                 .qualityParam(QualityParams(200, "Deflate", ImageType.GRAY))

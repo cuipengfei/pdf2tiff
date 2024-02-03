@@ -1,9 +1,9 @@
-package io.github.pdf2tiff
+package io.github.pdf2tiff.params
 
 import java.io.InputStream
 import java.io.OutputStream
 
-data class FileSizeControl(
+data class SizeControlParams(
     val maxFileSize: Long,
     val qualityParams: List<QualityParams>,
     val sourceFile: String?,
@@ -35,11 +35,11 @@ data class FileSizeControl(
             this.destOutputStream = destOutputStream
         }
 
-        fun build(): FileSizeControl {
+        fun build(): SizeControlParams {
             require(sourceFile != null && destFile != null || sourceInputStream != null && destOutputStream != null) {
                 "Either both sourceFile and destFile or both sourceInputStream and destOutputStream must be set"
             }
-            return FileSizeControl(
+            return SizeControlParams(
                 maxFileSize,
                 qualityParams,
                 sourceFile,
