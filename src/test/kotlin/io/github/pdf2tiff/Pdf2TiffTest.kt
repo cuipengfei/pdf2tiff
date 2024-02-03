@@ -10,7 +10,7 @@ import java.nio.file.Paths
 
 class Pdf2TiffTest {
     @Test
-    fun pdf2TiffTest() {
+    fun sizeControlTest() {
         Pdf2Tiff.pdf2Tiff(
             SizeControlParams.Builder()
                 .maxFileSize(15000)
@@ -26,5 +26,26 @@ class Pdf2TiffTest {
         val outputFileSize = Files.size(Paths.get("output.tiff"))
         Assertions.assertTrue(outputFileSize > 14000)
         Assertions.assertTrue(outputFileSize < 15000)
+    }
+
+    @Test
+    fun regularConversionTest() {
+        val compressions = listOf(
+            "LZW",
+            "Deflate"
+        )
+
+        for (compression in compressions) {
+            tryConvert(300, compression)
+            tryConvert(100, compression)
+        }
+    }
+
+    private fun tryConvert(dpi: Int, compression: String) {
+        val outputFile = "output-$dpi$compression.tiff"
+        Pdf2Tiff.pdf2Tiff("src/test/resources/sample.pdf", outputFile, dpi, compression, ImageType.RGB)
+
+        val outputFileSize = Files.size(Paths.get(outputFile))
+        Assertions.assertTrue(outputFileSize > 0)
     }
 }
