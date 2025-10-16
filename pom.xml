@@ -6,7 +6,7 @@
 
     <groupId>io.github.pdf2tiff</groupId>
     <artifactId>pdf2tiff</artifactId>
-    <version>1.5.6</version>
+    <version>1.5.7</version>
 
     <name>pdf2tiff</name>
     <description>Convert pdf to tiff image</description>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.5</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.junit.jupiter</groupId>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-tiff</artifactId>
-            <version>3.10.1</version>
+            <version>3.12.0</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-jpeg</artifactId>
-            <version>3.10.1</version>
+            <version>3.12.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.jai-imageio</groupId>
@@ -148,7 +148,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.8</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -169,7 +169,7 @@
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.3.0</version>
+                <version>0.9.0</version>
                 <extensions>true</extensions>
                 <configuration>
                     <publishingServerId>central</publishingServerId>
