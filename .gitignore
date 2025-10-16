@@ -43,3 +43,12 @@ Main.java
 /secret.txt
 /src/main/kotlin/io/github/pdf2tiff/TestConvert.kt
 /.java-version
+/.claude/settings.local.json
+/PLAN_TIFF2PDF.md
+/output-tiff2pdf.pdf
+/src/test/kotlin/io/github/pdf2tiff/Tiff2PdfSizeControlDemo.java
+/output-AUTO.pdf
+/output-CCITT.pdf
+/output-JPEG.pdf
+/output-LOSSLESS.pdf
+/TIFF2PDF_REVIEW.md
